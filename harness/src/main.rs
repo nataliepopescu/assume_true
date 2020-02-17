@@ -4,8 +4,8 @@ extern crate macro_def;
 
 use macro_def::assume_true;
 
-#[assume_true(i >= 0 && i < 8)]
-pub fn func_to_rewrite(slice: &[i32]) {
+#[assume_true(true)]
+fn func_to_rewrite(slice: &[i32]) {
 
     for i in 0..8 {
         println!("value at index {} = {}\n", i, slice[i]);
