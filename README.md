@@ -1,6 +1,6 @@
 # Playground for Rust Attribute Macros
 
-Run `cargo run` from inside /harness directory. 
+From inside /harness directory, run `make` to build a .so file or `make llvm` to generate llvm-ir. 
 
 The output shows how the attribute macro (defined in /macro_def) is used to 
 re-write a function at a compile time. The newly rewritten function can 
