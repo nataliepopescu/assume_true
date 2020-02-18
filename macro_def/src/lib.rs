@@ -35,7 +35,7 @@ pub fn assume_true(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     // Break down original string
     let (decl, remaining) = str_item.split_at(beg_idx + 1);
-    let (body, brkt) = remaining.split_at(end_idx - 36); // FIXME find -> (82 - 8), rfind -> (110 - 36); index => 74!!: why??? other #s change loc of bracket
+    let (body, brkt) = remaining.split_at(end_idx - beg_idx - 1); // FIXME find -> (82 - 8), rfind -> (110 - 36); index => 74!!: why??? other #s change loc of bracket
 
     let unreachable_import = String::from("\n  use std::hint::unreachable_unchecked;");
     let unreachable_string = String::from("\n    unsafe { unreachable_unchecked() }\n  }");
