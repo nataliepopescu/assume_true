@@ -3,62 +3,92 @@
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
+use proc_macro::TokenTree;
+use proc_macro::Group;
+use proc_macro::Delimiter;
+use std::str::FromStr;
 
 #[proc_macro_attribute]
 pub fn assume_true(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
-    let str_item = item.to_string();
-    let cond = _attr.to_string();
-
-    println!("\nassumption:\t{}\n", cond);
-    println!("\nold_item: \n\n{}\n", str_item);
-
-    // Find the function body
-    let mut beg_idx = 0;
-    {
-        let beg_opt = str_item.find('{');
-        if beg_opt.is_some() { beg_idx = beg_opt.unwrap(); }
+    // Do nothing
+    if _attr.is_empty() {
+        return item
     }
 
-    println!("beginning index == {}\n", beg_idx);
+    // Hack for potentially parsing/returning original item multiple times
+    let item_clone = item.clone();
+    let iter = item.into_iter(); //.enumerate();
 
-    let mut end_idx = 0;
-    {
-        let end_opt = str_item.rfind('}');
-        if end_opt.is_some() { end_idx = end_opt.unwrap(); }
+    // TODO handle different applications of the macro
+
+    // Get TokenTree for the function body
+    let mut old_body = (None, None);
+    let mut i = 0;
+    for e in iter {
+        let is_old_body = match e {
+            TokenTree::Group(g) => 
+                match g.delimiter() {
+                    Delimiter::Brace => Some(g),
+                    _ => None,
+                },
+            _ => None,
+        };
+        if is_old_body.is_some() {
+            old_body = (Some(i), is_old_body);
+            break;
+        }
+        i += 1;
+    };
+
+    // Currently does nothing if attribute applied to anything other than a function
+    if old_body.1.is_none() {
+        return item_clone
     }
 
-    println!("end index == {}\n", end_idx);
-    
-    // Construct wrapped function
-    if beg_idx == 0 || end_idx == 0 { println!("MALFORMED FXN\n"); }
-
-    // Break down original string
-    let (decl, remaining) = str_item.split_at(beg_idx + 1);
-    let (body, brkt) = remaining.split_at(end_idx - beg_idx - 1); // FIXME find -> (82 - 8), rfind -> (110 - 36); index => 74!!: why??? other #s change loc of bracket
-
+    // Import and construct unreachable usage
     let unreachable_import = String::from("\n  use std::hint::unreachable_unchecked;");
     let unreachable_string = String::from("\n    unsafe { unreachable_unchecked() }\n  }");
 
     // Construct if case
     let mut if_case = String::from("\n  if (");
-    if_case.push_str(&cond);
-    if_case.push_str(") {");
+    if_case.push_str(&_attr.to_string());
+    if_case.push_str(") ");
+    if_case.push_str(&old_body.1.unwrap().to_string());
 
     // Construct else case
-    let mut else_case = String::from("\n  } else {"); // panic!(); }");
+    let mut else_case = String::from("\n  else {");
     else_case.push_str(&unreachable_string);
 
-    // Construct rewritten function
-    let mut new_item = String::from(decl);
-    new_item.push_str(&unreachable_import);
-    new_item.push_str(&if_case);
-    new_item.push_str(body);
-    new_item.push_str(&else_case);
-    new_item.push_str(brkt);
+    // Construct rewritten function body
+    let mut new_body = unreachable_import;
+    new_body.push_str(&if_case);
+    new_body.push_str(&else_case);
 
-    println!("\nnew_item: \n\n{}\n", new_item);
+    // Replace old body with new body
+    let body_idx = old_body.0.unwrap();
+    let iter_clone = item_clone.into_iter(); //.enumerate();
+    i = 0;
+    let mut new_func = String::new();
+    for mut e in iter_clone {
+        if i == body_idx {
+            let result = TokenStream::from_str(&new_body);
+            match result {
+                Ok(res) => 
+                    // Hack around lack of TokenStream -> TokenTree conversion
+                    e = TokenTree::from(Group::new(Delimiter::Brace, res)),
+                Err(err) => panic!("Error parsing newly constructed function body: {:?}\n", err),
+            }
+        }
+        // Hack around borrow checker
+        new_func.push_str(&e.to_string());
+        new_func.push_str(" ");
+        i += 1;
+    }
 
-    new_item.parse().unwrap()
-
+    let result = TokenStream::from_str(&new_func);
+    match result {
+        Ok(res) => return res,
+        Err(err) => panic!("Error parsing newly constructed function: {:?}\n", err),
+    }
 }
