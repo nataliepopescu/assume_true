@@ -18,7 +18,7 @@ pub fn assume_true(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     // Hack for potentially parsing/returning original item multiple times
     let item_clone = item.clone();
-    let iter = item.into_iter(); //.enumerate();
+    let iter = item.into_iter();
 
     // TODO handle different applications of the macro
 
@@ -67,7 +67,7 @@ pub fn assume_true(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     // Replace old body with new body
     let body_idx = old_body.0.unwrap();
-    let iter_clone = item_clone.into_iter(); //.enumerate();
+    let iter_clone = item_clone.into_iter();
     i = 0;
     let mut new_func = String::new();
     for mut e in iter_clone {
