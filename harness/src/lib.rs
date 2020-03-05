@@ -7,7 +7,7 @@ extern crate macro_def;
 use macro_def::assume_true;
 
 #[no_mangle]
-#[assume_true(slice.len() >= 8)]
+#[assume_true(slice.len() >= 6)]
 pub fn func_to_rewrite(slice: &mut [i32]) {
     for i in 0..8 {
         slice[i] += 1;
@@ -55,7 +55,7 @@ pub fn fixed_output_size(input: &[usize], output: &mut [usize; 32]) {
 }
 
 #[no_mangle]
-#[assume_true(for c in slice1.iter() { slice2.len() >= c })]
+//#[assume_true(for c in slice1.iter() { slice2.len() >= *c })]
 pub fn matrix_mult(slice1: &[usize], slice2: &mut [usize]) {
     for c in slice1.iter() {
         //#[assume_true(slice2.len() >= *c)]
