@@ -13,7 +13,7 @@ fn main() {
         *c = 0xffaa;
     }
     optimal_unsafe::_impl(&mut app_buf, &other_buf);
-    c_style_input_size_fixed::_impl(&mut app_buf, &other_buf);
+    zip_chunks_fixed_size_take_iter::_impl(&mut app_buf, &other_buf);
 
     println!("{}", app_buf[55]);
 }
@@ -992,7 +992,7 @@ fn main() {
             #[inline(never)]
             #[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
-                for (b, ac) in input.iter().zip(output.chunks_mut(2)) {
+                for (b, ac) in input.iter().zip(output.chunks_exact_mut(2)) {
                     ac[0] = (*b & 0xff) as u8;
                     ac[1] = ((*b >> 8) & 0xff) as u8;
                 }
@@ -1115,7 +1115,7 @@ fn main() {
             #[inline(never)]
             #[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
-                for (b, ac) in input.iter().zip(output.chunks_mut(2)).take(320000) {
+                for (b, ac) in input.iter().zip(output.chunks_exact_mut(2)).take(320000) {
                     ac[0] = (*b & 0xff) as u8;
                     ac[1] = ((*b >> 8) & 0xff) as u8;
                 }
@@ -1176,7 +1176,7 @@ fn main() {
             #[inline(never)]
             #[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
-                for (&b, ac) in input.iter().zip(output.chunks_mut(2)).take(320000) {
+                for (&b, ac) in input.iter().zip(output.chunks_exact_mut(2)).take(320000) {
                     let mut val = b;
                     for byte in ac.iter_mut() {
                         *byte = (val & 0xFF) as u8;
