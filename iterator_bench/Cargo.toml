@@ -1,0 +1,8 @@
+[package]
+name = "iterator_bench"
+version = "0.1.0"
+authors = ["Amit Aryeh Levy <amit@amitlevy.com>"]
+
+[dependencies]
+rand = "*"
+macro_def = { path = "../macro_def/" }
