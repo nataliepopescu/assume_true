@@ -1,15 +1,15 @@
 all: bin
 
-bin: src/lib.rs
+bin: src/main.rs
 	cargo build --release
 
-llvm: src/lib.rs
+llvm: src/main.rs
 	cargo rustc --release -- --emit=llvm-ir
 
-print: src/lib.rs
+print: src/main.rs
 	cargo rustc -- -Zunstable-options --pretty=expanded
 
-symbols: target/release/libharness.dylib
+symbols: target/release/iterator_bench
 	nm --print-size --numeric-sort $< > $@
 
 .PHONY = clean
