@@ -9,7 +9,7 @@ folder is, rather, to evaluate how the `assume_true` macro can be used.
 
 Without `assume_true`: 
 
-`
+```
 running 36 tests
 test c_style_fixed_size::_test ... ignored
 test c_style_input_size_fixed::_test ... ignored
@@ -49,11 +49,11 @@ test zip_chunks_unknown_size_take::_bench            ... bench:     538,832 ns/i
 test zip_chunks_unknown_size_take_iter::_bench       ... bench:     916,621 ns/iter (+/- 99,467)
 
 test result: ok. 0 passed; 0 failed; 18 ignored; 18 measured; 0 filtered out
-`
+```
 
 With `assume_true`:
 
-`
+```
 running 36 tests
 test c_style_fixed_size::_test ... ignored
 test c_style_input_size_fixed::_test ... ignored
@@ -93,4 +93,4 @@ test zip_chunks_unknown_size_take::_bench            ... bench:      26,543 ns/i
 test zip_chunks_unknown_size_take_iter::_bench       ... bench:     112,191 ns/iter (+/- 2,640)
 
 test result: ok. 0 passed; 0 failed; 18 ignored; 18 measured; 0 filtered out
-`
+```
