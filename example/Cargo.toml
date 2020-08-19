@@ -5,9 +5,18 @@ authors = ["np <nataliepopescu@gmail.com>"]
 edition = "2018"
 
 [lib]
-crate-type = ["dylib"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+#crate-type = ["dylib"]
 
 [dependencies]
+rand = "*"
 macro_def = { path = "../macro_def/" }
+
+[profile.bench]
+debug = true
+
+[[bench]]
+name = "bench"
+harness = false
+
+[dev-dependencies.bencher]
+version = "0.1.4"

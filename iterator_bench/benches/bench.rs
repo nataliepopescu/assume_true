@@ -1,12 +1,19 @@
-#![feature(stmt_expr_attributes, test)]
-#![feature(custom_attribute)]
-#![feature(proc_macro_hygiene)]
+//#![feature(stmt_expr_attributes, test)]
+//#![feature(custom_attribute)]
+//#![feature(proc_macro_hygiene)]
+
+extern crate iterator_bench;
+
+//use self;
 
 extern crate rand;
-extern crate test;
-extern crate macro_def;
+#[macro_use] extern crate bencher;
 
-fn main() {
+use bencher::{Bencher, black_box};
+
+//extern crate macro_def;
+
+/*fn main() {
     let mut app_buf: [u8; 640000] = [0; 640000];
     let mut other_buf: [u16; 320000] = [0; 320000];
     for c in other_buf.iter_mut() {
@@ -16,11 +23,11 @@ fn main() {
     zip_chunks_fixed_size_take_iter::_impl(&mut app_buf, &other_buf);
 
     println!("{}", app_buf[55]);
-}
+}*/
 
 /*macro_rules! benchmark {
     ( $name:ident, $output:ty, $input:ty, $impl:expr ) => {
-        mod $name {
+        pub mod $name {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
             #[test]
@@ -93,7 +100,7 @@ fn main() {
     }
 );*/
 
-        mod optimal_unsafe {
+  /*      pub mod optimal_unsafe {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
             #[test]
@@ -115,8 +122,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn optimal_unsafe_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -124,10 +131,10 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::optimal_unsafe_impl(&mut app_buf, &other_buf));
                 });
             }
-
+/*
             #[inline(never)]
             pub fn _impl(output: &mut [u8; 640000], input: &[u16; 320000]) {
                 for i in 0..input.len() {
@@ -139,7 +146,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     c_style_fixed_size,
     [u8; 640000],
@@ -150,8 +157,8 @@ fn main() {
         output[2 * i + 1] = ((b >> 8) & 0xff) as u8;
     }
 );*/
-
-        mod c_style_fixed_size {
+/*
+        pub mod c_style_fixed_size {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
             #[test]
@@ -173,8 +180,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn c_style_fixed_size_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -182,9 +189,9 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::c_style_fixed_size_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
             pub fn _impl(output: &mut [u8; 640000], input: &[u16; 320000]) {
@@ -195,7 +202,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     c_style_input_size_fixed,
     [u8],
@@ -208,11 +215,11 @@ fn main() {
         }
     }
 );*/
-
-        mod c_style_input_size_fixed {
+/*
+        pub mod c_style_input_size_fixed {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -232,8 +239,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn c_style_input_size_fixed_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -241,11 +248,11 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::c_style_input_size_fixed_impl(&mut app_buf, &other_buf));
                 });
             }
 
-            #[inline(never)]
+            //#[inline(never)]
             //  UNOPT: 
             //#[assume_true(input.len() == output.len() / 2 && output.len() >= 640000)]
             //#[assume_true(output.len() >= 2 * input.len() && input.len() == 320000)]
@@ -261,8 +268,8 @@ fn main() {
             //#[assume_true(input.len() == 320000 && output.len() == 2 * 320000)]
             //#[assume_true(input.len() == 320000 && output.len() == 2 * input.len())]
             //#[assume_true(output.len() == 2 * input.len())]
-            #[assume_true(output.len() == 640000)]
-            pub fn _impl(output: &mut [u8], input: &[u16; 320000]) {
+            //#[assume_true(output.len() == 640000)]
+            /*pub fn _impl(output: &mut [u8], input: &[u16; 320000]) {
                 for i in 0..input.len() {
                     let b = input[i];
                     output[2 * i] = (b & 0xff) as u8;
@@ -270,7 +277,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     c_style_output_size_fixed,
     [u8; 640000],
@@ -281,11 +288,11 @@ fn main() {
         output[2 * i + 1] = ((b >> 8) & 0xff) as u8;
     }
 );*/
-
-        mod c_style_output_size_fixed {
+/*
+        pub mod c_style_output_size_fixed {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -305,8 +312,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn c_style_output_size_fixed_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -314,15 +321,15 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::c_style_output_size_fixed_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
             //  UNOPT:
             //#[assume_true(input.len() >= 320000)]
             //  OPT:
-            #[assume_true(input.len() == 320000)]
+            //#[assume_true(input.len() == 320000)]
             pub fn _impl(output: &mut [u8; 640000], input: &[u16]) {
                 for i in 0..input.len() {
                     let b = input[i];
@@ -331,7 +338,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     c_style_unknown_size,
     [u8],
@@ -343,10 +350,10 @@ fn main() {
     }
 );*/
 
-        mod c_style_unknown_size {
+        /*pub mod c_style_unknown_size {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -366,8 +373,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn c_style_unknown_size_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -375,12 +382,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::c_style_unknown_size_impl(&mut app_buf, &other_buf));
                 });
             }
-
+/*
             #[inline(never)]
-            #[assume_true(input.len() == 320000 && output.len() == 640000)]
+            //#[assume_true(input.len() == 320000 && output.len() == 640000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for i in 0..input.len() {
                     let b = input[i];
@@ -389,7 +396,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     c_style_unknown_size_limit,
     [u8],
@@ -404,10 +411,10 @@ fn main() {
     }
 );*/
 
-        mod c_style_unknown_size_limit {
+  /*      pub mod c_style_unknown_size_limit {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -427,8 +434,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn c_style_unknown_size_limit_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -436,12 +443,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::c_style_unknown_size_limit_impl(&mut app_buf, &other_buf));
                 });
             }
-
+/*
             #[inline(never)]
-            #[assume_true(input.len() == 320000 && output.len() == 640000)]
+            //#[assume_true(input.len() == 320000 && output.len() == 640000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 use std::cmp::max;
                 for i in 0..max(320000, input.len()) {
@@ -451,7 +458,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_fixed_size,
     [u8; 640000],
@@ -466,7 +473,7 @@ fn main() {
     }
 );*/
 
-        mod zip_chunks_fixed_size {
+  /*      pub mod zip_chunks_fixed_size {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
             #[test]
@@ -488,8 +495,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_fixed_size_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -497,10 +504,10 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_fixed_size_impl(&mut app_buf, &other_buf));
                 });
             }
-
+/*
             #[inline(never)]
             pub fn _impl(output: &mut [u8; 640000], input: &[u16; 320000]) {
                 for (&b, ac) in input.iter().zip(output.chunks_mut(2)) {
@@ -511,7 +518,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_fixed_size_take,
     [u8; 640000],
@@ -525,8 +532,8 @@ fn main() {
         }
     }
 );*/
-
-        mod zip_chunks_fixed_size_take {
+/*
+        pub mod zip_chunks_fixed_size_take {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
             #[test]
@@ -548,8 +555,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_fixed_size_take_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -557,9 +564,9 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_fixed_size_take_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
             pub fn _impl(output: &mut [u8; 640000], input: &[u16; 320000]) {
@@ -570,7 +577,7 @@ fn main() {
                     ac[1] = ((b >> 8) & 0xff) as u8;
                 }
             }
-        }
+        }*/
 
 /*benchmark!(
     zip_chunks_fixed_size_take_iter,
@@ -586,11 +593,11 @@ fn main() {
         }
     }
 );*/
-
-        mod zip_chunks_fixed_size_take_iter {
+/*
+        pub mod zip_chunks_fixed_size_take_iter {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -610,8 +617,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_fixed_size_take_iter_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -619,9 +626,9 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_fixed_size_take_iter_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
             //#[assume_true(input.iter().count() == 320000 && output.chunks_mut(2).count() == 320000)]
@@ -640,7 +647,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_output_size_fixed,
     [u8; 640000],
@@ -655,10 +662,10 @@ fn main() {
     }
 );*/
 
-        mod zip_chunks_output_size_fixed {
+  /*      pub mod zip_chunks_output_size_fixed {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -678,8 +685,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_output_size_fixed_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -687,12 +694,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_output_size_fixed_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(input.len() == 320000)]
+            //#[assume_true(input.len() == 320000)]
             pub fn _impl(output: &mut [u8; 640000], input: &[u16]) {
                 for (&b, ac) in input.iter().zip(output.chunks_mut(2)) {
                     // the type of `ac` is `[u8]`, but the optimizer should be able to figure out that it's
@@ -701,7 +708,7 @@ fn main() {
                     ac[1] = ((b >> 8) & 0xff) as u8;
                 }
             }
-        }
+        }*/
 
 /*benchmark!(
     zip_chunks_input_size_fixed,
@@ -716,11 +723,11 @@ fn main() {
         }
     }
 );*/
-
-        mod zip_chunks_input_size_fixed {
+/*
+        pub mod zip_chunks_input_size_fixed {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -740,8 +747,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_input_size_fixed_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -749,12 +756,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_input_size_fixed_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(output.len() == 640000)]
+            //#[assume_true(output.len() == 640000)]
             pub fn _impl(output: &mut [u8], input: &[u16; 320000]) {
                 for (&b, ac) in input.iter().zip(output.chunks_mut(2)) {
                     // the type of `ac` is `[u8]`, but the optimizer should be able to figure out that it's
@@ -764,7 +771,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_unknown_size,
     [u8],
@@ -775,10 +782,10 @@ fn main() {
     }
 );*/
 
-        mod zip_chunks_unknown_size {
+/*        pub mod zip_chunks_unknown_size {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -798,8 +805,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_unknown_size_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -807,12 +814,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_unknown_size_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for (b, ac) in input.iter().zip(output.chunks_mut(2)) {
                     ac[0] = (*b & 0xff) as u8;
@@ -820,7 +827,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_unknown_size_take,
     [u8],
@@ -832,11 +839,11 @@ fn main() {
         ac[1] = ((*b >> 8) & 0xff) as u8;
     }
 );*/
-
-        mod zip_chunks_unknown_size_take {
+/*
+        pub mod zip_chunks_unknown_size_take {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -856,8 +863,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_unknown_size_take_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -865,12 +872,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_unknown_size_take_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for (b, ac) in input.iter().zip(output.chunks_mut(2)).take(320000) {
                     ac[0] = (*b & 0xff) as u8;
@@ -878,7 +885,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_unknown_size_take_iter,
     [u8],
@@ -893,11 +900,11 @@ fn main() {
         }
     }
 );*/
-
-        mod zip_chunks_unknown_size_take_iter {
+/*
+        pub mod zip_chunks_unknown_size_take_iter {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -917,8 +924,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_unknown_size_take_iter_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -926,12 +933,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_unknown_size_take_iter_impl(&mut app_buf, &other_buf));
                 });
             }
-
+/*
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for (&b, ac) in input.iter().zip(output.chunks_mut(2)).take(320000) {
                     let mut val = b;
@@ -942,7 +949,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_exact_unknown_size,
     [u8],
@@ -952,11 +959,11 @@ fn main() {
         ac[1] = ((*b >> 8) & 0xff) as u8;
     }
 );*/
-
-        mod zip_chunks_exact_unknown_size {
+/*
+        pub mod zip_chunks_exact_unknown_size {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -976,8 +983,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_exact_unknown_size_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -985,19 +992,19 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_exact_unknown_size_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for (b, ac) in input.iter().zip(output.chunks_exact_mut(2)) {
                     ac[0] = (*b & 0xff) as u8;
                     ac[1] = ((*b >> 8) & 0xff) as u8;
                 }
             }
-        }
+        }*/
 
 /*benchmark!(
     zip_chunks_exact_unknown_size_slice,
@@ -1014,11 +1021,11 @@ fn main() {
         }
     }
 );*/
-
-        mod zip_chunks_exact_unknown_size_slice {
+/*
+        pub mod zip_chunks_exact_unknown_size_slice {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -1038,8 +1045,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_exact_unknown_size_slice_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -1047,12 +1054,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_exact_unknown_size_slice_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 use std::cmp::min;
                 for (b, ac) in input[..(min(320000, input.len()))]
@@ -1062,7 +1069,7 @@ fn main() {
                     ac[1] = ((*b >> 8) & 0xff) as u8;
                 }
             }
-        }
+        }*/
 
 /*benchmark!(
     zip_chunks_exact_unknown_size_take,
@@ -1075,11 +1082,11 @@ fn main() {
         ac[1] = ((*b >> 8) & 0xff) as u8;
     }
 );*/
-
-        mod zip_chunks_exact_unknown_size_take {
+/*
+        pub mod zip_chunks_exact_unknown_size_take {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -1099,8 +1106,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_exact_unknown_size_take_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -1108,12 +1115,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_exact_unknown_size_take_impl(&mut app_buf, &other_buf));
                 });
             }
-
+/*
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for (b, ac) in input.iter().zip(output.chunks_exact_mut(2)).take(320000) {
                     ac[0] = (*b & 0xff) as u8;
@@ -1121,7 +1128,7 @@ fn main() {
                 }
             }
         }
-
+*/
 /*benchmark!(
     zip_chunks_exact_unknown_size_take_iter,
     [u8],
@@ -1136,11 +1143,11 @@ fn main() {
         }
     }
 );*/
-
-        mod zip_chunks_exact_unknown_size_take_iter {
+/*
+        pub mod zip_chunks_exact_unknown_size_take_iter {
             #[allow(unused_imports)]
             use test::{black_box, Bencher};
-            use macro_def::assume_true;
+            //use macro_def::assume_true;
             #[test]
             fn _test() {
                 let mut app_buf: [u8; 640000] = [0; 640000];
@@ -1160,8 +1167,8 @@ fn main() {
                 }
             }
 
-            #[bench]
-            fn _bench(bencher: &mut Bencher) {
+            #[bench]*/
+            fn zip_chunks_exact_unknown_size_take_iter_bench(bencher: &mut Bencher) {
                 let mut app_buf: [u8; 640000] = [0; 640000];
                 let mut other_buf: [u16; 320000] = [0; 320000];
                 for i in 0..320000 {
@@ -1169,12 +1176,12 @@ fn main() {
                 }
 
                 bencher.iter(|| {
-                    black_box(_impl(&mut app_buf, &other_buf));
+                    black_box(iterator_bench::zip_chunks_exact_unknown_size_take_iter_impl(&mut app_buf, &other_buf));
                 });
-            }
+            }/*
 
             #[inline(never)]
-            #[assume_true(output.len() == 640000 && input.len() == 320000)]
+            //#[assume_true(output.len() == 640000 && input.len() == 320000)]
             pub fn _impl(output: &mut [u8], input: &[u16]) {
                 for (&b, ac) in input.iter().zip(output.chunks_exact_mut(2)).take(320000) {
                     let mut val = b;
@@ -1184,4 +1191,26 @@ fn main() {
                     }
                 }
             }
-        }
+        }*/
+
+benchmark_group!(benches,
+                 optimal_unsafe_bench,
+                 c_style_fixed_size_bench,
+                 c_style_input_size_fixed_bench,
+                 c_style_output_size_fixed_bench,
+                 c_style_unknown_size_bench,
+                 c_style_unknown_size_limit_bench,
+                 zip_chunks_fixed_size_bench,
+                 zip_chunks_fixed_size_take_bench,
+                 zip_chunks_fixed_size_take_iter_bench,
+                 zip_chunks_output_size_fixed_bench,
+                 zip_chunks_input_size_fixed_bench,
+                 zip_chunks_unknown_size_bench,
+                 zip_chunks_unknown_size_take_bench,
+                 zip_chunks_unknown_size_take_iter_bench,
+                 zip_chunks_exact_unknown_size_bench,
+                 zip_chunks_exact_unknown_size_slice_bench,
+                 zip_chunks_exact_unknown_size_take_bench,
+                 zip_chunks_exact_unknown_size_take_iter_bench);
+
+benchmark_main!(benches);

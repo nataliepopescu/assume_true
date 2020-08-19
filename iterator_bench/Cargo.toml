@@ -3,6 +3,15 @@ name = "iterator_bench"
 version = "0.1.0"
 authors = ["Amit Aryeh Levy <amit@amitlevy.com>"]
 
+[lib]
+
 [dependencies]
 rand = "*"
 macro_def = { path = "../macro_def/" }
+
+[dev-dependencies.bencher]
+version = "0.1.4"
+
+[[bench]]
+name = "bench"
+harness = false
