@@ -141,6 +141,32 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:     858,948 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench`
+
+```
+running 18 tests
+test c_style_fixed_size_bench                      ... bench:      39,889 ns/iter (+/- 134)
+test c_style_input_size_fixed_bench                ... bench:      39,948 ns/iter (+/- 106)
+test c_style_output_size_fixed_bench               ... bench:      39,969 ns/iter (+/- 108)
+test c_style_unknown_size_bench                    ... bench:      39,959 ns/iter (+/- 115)
+test c_style_unknown_size_limit_bench              ... bench:      39,961 ns/iter (+/- 96)
+test optimal_unsafe_bench                          ... bench:      39,950 ns/iter (+/- 120)
+test zip_chunks_exact_unknown_size_bench           ... bench:      39,956 ns/iter (+/- 121)
+test zip_chunks_exact_unknown_size_slice_bench     ... bench:      39,973 ns/iter (+/- 145)
+test zip_chunks_exact_unknown_size_take_bench      ... bench:     164,644 ns/iter (+/- 1,340)
+test zip_chunks_exact_unknown_size_take_iter_bench ... bench:     164,725 ns/iter (+/- 661)
+test zip_chunks_fixed_size_bench                   ... bench:      39,937 ns/iter (+/- 134)
+test zip_chunks_fixed_size_take_bench              ... bench:      39,960 ns/iter (+/- 107)
+test zip_chunks_fixed_size_take_iter_bench         ... bench:     133,866 ns/iter (+/- 158)
+test zip_chunks_input_size_fixed_bench             ... bench:      39,945 ns/iter (+/- 111)
+test zip_chunks_output_size_fixed_bench            ... bench:      39,981 ns/iter (+/- 188)
+test zip_chunks_unknown_size_bench                 ... bench:      39,944 ns/iter (+/- 103)
+test zip_chunks_unknown_size_take_bench            ... bench:     221,720 ns/iter (+/- 32,136)
+test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,172,838 ns/iter (+/- 17,011)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
+```
+
 ## Technique 2
 
 ### LLVM pass disabled (baseline)
@@ -193,6 +219,32 @@ test zip_chunks_output_size_fixed_bench            ... bench:     428,752 ns/ite
 test zip_chunks_unknown_size_bench                 ... bench:     401,575 ns/iter (+/- 746)
 test zip_chunks_unknown_size_take_bench            ... bench:     642,644 ns/iter (+/- 2,513)
 test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,070,907 ns/iter (+/- 2,755)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
+```
+
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench`
+
+```
+running 18 tests
+test c_style_fixed_size_bench                      ... bench:     134,186 ns/iter (+/- 525)
+test c_style_input_size_fixed_bench                ... bench:     282,034 ns/iter (+/- 4,935)
+test c_style_output_size_fixed_bench               ... bench:     428,264 ns/iter (+/- 529)
+test c_style_unknown_size_bench                    ... bench:     351,417 ns/iter (+/- 3,480)
+test c_style_unknown_size_limit_bench              ... bench:     428,160 ns/iter (+/- 550)
+test optimal_unsafe_bench                          ... bench:      41,552 ns/iter (+/- 82)
+test zip_chunks_exact_unknown_size_bench           ... bench:      41,555 ns/iter (+/- 67)
+test zip_chunks_exact_unknown_size_slice_bench     ... bench:      41,553 ns/iter (+/- 79)
+test zip_chunks_exact_unknown_size_take_bench      ... bench:      41,566 ns/iter (+/- 245)
+test zip_chunks_exact_unknown_size_take_iter_bench ... bench:     164,191 ns/iter (+/- 1,878)
+test zip_chunks_fixed_size_bench                   ... bench:      41,558 ns/iter (+/- 75)
+test zip_chunks_fixed_size_take_bench              ... bench:      41,534 ns/iter (+/- 109)
+test zip_chunks_fixed_size_take_iter_bench         ... bench:     134,250 ns/iter (+/- 134)
+test zip_chunks_input_size_fixed_bench             ... bench:     642,444 ns/iter (+/- 1,713)
+test zip_chunks_output_size_fixed_bench            ... bench:     401,471 ns/iter (+/- 200)
+test zip_chunks_unknown_size_bench                 ... bench:     535,290 ns/iter (+/- 953)
+test zip_chunks_unknown_size_take_bench            ... bench:     508,600 ns/iter (+/- 1,062)
+test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,070,198 ns/iter (+/- 1,197)
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
@@ -251,6 +303,32 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,070,790 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench -- -Z remove-bc`
+
+```
+running 18 tests
+test c_style_fixed_size_bench                      ... bench:     133,516 ns/iter (+/- 544)
+test c_style_input_size_fixed_bench                ... bench:     374,676 ns/iter (+/- 225)
+test c_style_output_size_fixed_bench               ... bench:     428,131 ns/iter (+/- 544)
+test c_style_unknown_size_bench                    ... bench:     352,920 ns/iter (+/- 2,989)
+test c_style_unknown_size_limit_bench              ... bench:     321,892 ns/iter (+/- 535)
+test optimal_unsafe_bench                          ... bench:      39,082 ns/iter (+/- 127)
+test zip_chunks_exact_unknown_size_bench           ... bench:      39,077 ns/iter (+/- 123)
+test zip_chunks_exact_unknown_size_slice_bench     ... bench:      39,049 ns/iter (+/- 141)
+test zip_chunks_exact_unknown_size_take_bench      ... bench:      39,059 ns/iter (+/- 147)
+test zip_chunks_exact_unknown_size_take_iter_bench ... bench:     164,615 ns/iter (+/- 808)
+test zip_chunks_fixed_size_bench                   ... bench:      39,067 ns/iter (+/- 177)
+test zip_chunks_fixed_size_take_bench              ... bench:      39,060 ns/iter (+/- 153)
+test zip_chunks_fixed_size_take_iter_bench         ... bench:     133,645 ns/iter (+/- 146)
+test zip_chunks_input_size_fixed_bench             ... bench:     642,425 ns/iter (+/- 972)
+test zip_chunks_output_size_fixed_bench            ... bench:     401,443 ns/iter (+/- 237)
+test zip_chunks_unknown_size_bench                 ... bench:     647,350 ns/iter (+/- 46,550)
+test zip_chunks_unknown_size_take_bench            ... bench:     729,458 ns/iter (+/- 107,105)
+test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,177,187 ns/iter (+/- 1,406)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
+```
+
 ### LLVM pass enabled in RUSTFLAGS
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -Z remove-bc" cargo rustc --release --bench bench`
@@ -305,3 +383,28 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,071,661 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1 -Z remove-bc" cargo rustc --release --bench bench`
+
+```
+running 18 tests
+test c_style_fixed_size_bench                      ... bench:      40,599 ns/iter (+/- 88)
+test c_style_input_size_fixed_bench                ... bench:      40,623 ns/iter (+/- 95)
+test c_style_output_size_fixed_bench               ... bench:      40,629 ns/iter (+/- 105)
+test c_style_unknown_size_bench                    ... bench:      40,640 ns/iter (+/- 293)
+test c_style_unknown_size_limit_bench              ... bench:      40,628 ns/iter (+/- 90)
+test optimal_unsafe_bench                          ... bench:      40,615 ns/iter (+/- 97)
+test zip_chunks_exact_unknown_size_bench           ... bench:      40,646 ns/iter (+/- 70)
+test zip_chunks_exact_unknown_size_slice_bench     ... bench:      40,619 ns/iter (+/- 82)
+test zip_chunks_exact_unknown_size_take_bench      ... bench:      40,621 ns/iter (+/- 108)
+test zip_chunks_exact_unknown_size_take_iter_bench ... bench:     164,595 ns/iter (+/- 2,183)
+test zip_chunks_fixed_size_bench                   ... bench:      40,626 ns/iter (+/- 190)
+test zip_chunks_fixed_size_take_bench              ... bench:      40,613 ns/iter (+/- 97)
+test zip_chunks_fixed_size_take_iter_bench         ... bench:     133,940 ns/iter (+/- 164)
+test zip_chunks_input_size_fixed_bench             ... bench:     348,122 ns/iter (+/- 530)
+test zip_chunks_output_size_fixed_bench            ... bench:     428,215 ns/iter (+/- 513)
+test zip_chunks_unknown_size_bench                 ... bench:     374,875 ns/iter (+/- 459)
+test zip_chunks_unknown_size_take_bench            ... bench:     375,580 ns/iter (+/- 945)
+test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,096,905 ns/iter (+/- 2,939)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
+```
