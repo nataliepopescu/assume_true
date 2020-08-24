@@ -9,7 +9,7 @@ implementation for easier analysis at the LLVM IR level.
 
 ### rustc nightly-2020-07-05 (baseline)
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -35,7 +35,7 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,683,003 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -61,9 +61,35 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:     858,561 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench`
+
+```
+running 18 tests
+test c_style_fixed_size_bench                      ... bench:      40,598 ns/iter (+/- 182)
+test c_style_input_size_fixed_bench                ... bench:     294,751 ns/iter (+/- 4,280)
+test c_style_output_size_fixed_bench               ... bench:     214,079 ns/iter (+/- 179)
+test c_style_unknown_size_bench                    ... bench:     321,114 ns/iter (+/- 390)
+test c_style_unknown_size_limit_bench              ... bench:     366,580 ns/iter (+/- 3,108)
+test optimal_unsafe_bench                          ... bench:      40,662 ns/iter (+/- 106)
+test zip_chunks_exact_unknown_size_bench           ... bench:      40,655 ns/iter (+/- 163)
+test zip_chunks_exact_unknown_size_slice_bench     ... bench:      40,644 ns/iter (+/- 123)
+test zip_chunks_exact_unknown_size_take_bench      ... bench:     164,691 ns/iter (+/- 454)
+test zip_chunks_exact_unknown_size_take_iter_bench ... bench:     164,703 ns/iter (+/- 529)
+test zip_chunks_fixed_size_bench                   ... bench:      40,767 ns/iter (+/- 125)
+test zip_chunks_fixed_size_take_bench              ... bench:      40,779 ns/iter (+/- 127)
+test zip_chunks_fixed_size_take_iter_bench         ... bench:     134,000 ns/iter (+/- 175)
+test zip_chunks_input_size_fixed_bench             ... bench:     375,086 ns/iter (+/- 762)
+test zip_chunks_output_size_fixed_bench            ... bench:      40,656 ns/iter (+/- 107)
+test zip_chunks_unknown_size_bench                 ... bench:     401,564 ns/iter (+/- 251)
+test zip_chunks_unknown_size_take_bench            ... bench:     401,469 ns/iter (+/- 202)
+test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,070,332 ns/iter (+/- 11,911)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
+```
+
 ### MIR modification
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -89,7 +115,7 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,726,873 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -119,7 +145,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 ### LLVM pass disabled (baseline)
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -145,7 +171,7 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,675,233 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -173,7 +199,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 ### LLVM pass enabled for this crate
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo bench --release --bench bench -- -Z remove-bc`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench -- -Z remove-bc`
 
 ```
 running 18 tests
@@ -199,7 +225,7 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,675,948 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo bench --release --bench bench -- -Z remove-bc`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench -- -Z remove-bc`
 
 ```
 running 18 tests
@@ -227,7 +253,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 ### LLVM pass enabled in RUSTFLAGS
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -Z remove-bc" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -Z remove-bc" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
@@ -253,7 +279,7 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,931,630 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
-`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -Z remove-bc" cargo bench --release --bench bench`
+`RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -Z remove-bc" cargo rustc --release --bench bench`
 
 ```
 running 18 tests
