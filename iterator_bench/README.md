@@ -11,7 +11,7 @@ implementation for easier analysis at the LLVM IR level.
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:     428,555 ns/iter (+/- 8,337)
 test c_style_input_size_fixed_bench                ... bench:     429,159 ns/iter (+/- 9,710)
@@ -37,7 +37,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      41,546 ns/iter (+/- 448)
 test c_style_input_size_fixed_bench                ... bench:     275,590 ns/iter (+/- 5,302)
@@ -63,7 +63,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      40,598 ns/iter (+/- 182)
 test c_style_input_size_fixed_bench                ... bench:     294,751 ns/iter (+/- 4,280)
@@ -91,7 +91,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      41,541 ns/iter (+/- 517)
 test c_style_input_size_fixed_bench                ... bench:      41,636 ns/iter (+/- 573)
@@ -117,7 +117,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      39,607 ns/iter (+/- 507)
 test c_style_input_size_fixed_bench                ... bench:      39,687 ns/iter (+/- 470)
@@ -143,7 +143,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      39,889 ns/iter (+/- 134)
 test c_style_input_size_fixed_bench                ... bench:      39,948 ns/iter (+/- 106)
@@ -173,7 +173,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:     428,572 ns/iter (+/- 5,114)
 test c_style_input_size_fixed_bench                ... bench:     428,973 ns/iter (+/- 6,619)
@@ -199,7 +199,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      43,292 ns/iter (+/- 357)
 test c_style_input_size_fixed_bench                ... bench:     321,459 ns/iter (+/- 8,830)
@@ -225,7 +225,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:     134,186 ns/iter (+/- 525)
 test c_style_input_size_fixed_bench                ... bench:     282,034 ns/iter (+/- 4,935)
@@ -253,7 +253,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off" cargo rustc --release --bench bench -- -Z remove-bc`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:     429,010 ns/iter (+/- 2,141)
 test c_style_input_size_fixed_bench                ... bench:     428,992 ns/iter (+/- 2,388)
@@ -279,7 +279,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no" cargo rustc --release --bench bench -- -Z remove-bc`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      43,257 ns/iter (+/- 403)
 test c_style_input_size_fixed_bench                ... bench:     321,543 ns/iter (+/- 20,773)
@@ -305,7 +305,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1" cargo rustc --release --bench bench -- -Z remove-bc`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:     133,516 ns/iter (+/- 544)
 test c_style_input_size_fixed_bench                ... bench:     374,676 ns/iter (+/- 225)
@@ -329,11 +329,11 @@ test zip_chunks_unknown_size_take_iter_bench       ... bench:   1,177,187 ns/ite
 test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 ```
 
-### LLVM pass enabled in RUSTFLAGS
+### LLVM pass enabled for this crate and all its dependencies
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -Z remove-bc" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      44,139 ns/iter (+/- 126)
 test c_style_input_size_fixed_bench                ... bench:      44,050 ns/iter (+/- 128)
@@ -359,7 +359,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -Z remove-bc" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      42,819 ns/iter (+/- 207)
 test c_style_input_size_fixed_bench                ... bench:      42,882 ns/iter (+/- 361)
@@ -385,7 +385,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 18 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=no -C lto=off -C codegen-units=1 -Z remove-bc" cargo rustc --release --bench bench`
 
-```
+```sh
 running 18 tests
 test c_style_fixed_size_bench                      ... bench:      40,599 ns/iter (+/- 88)
 test c_style_input_size_fixed_bench                ... bench:      40,623 ns/iter (+/- 95)
