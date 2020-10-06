@@ -2,7 +2,7 @@ extern crate rand;
 extern crate example;
 #[macro_use] extern crate bencher;
 
-use bencher::Bencher;
+use bencher::{Bencher, black_box};
 
 fn bench(bencher: &mut Bencher) {
     let mut app_buf: [usize; 320000] = [0; 320000];
