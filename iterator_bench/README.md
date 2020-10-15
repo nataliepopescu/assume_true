@@ -7,7 +7,7 @@ implementation for easier analysis at the LLVM IR level.
 
 ## rustc 1.46.0-dev; cargo 1.46-dev; LLVM 9.0
 
-### Bounds Checks Normal
+### Bounds Checks Present
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes" cargo bench`
 
