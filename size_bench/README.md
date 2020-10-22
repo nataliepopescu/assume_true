@@ -1,6 +1,6 @@
 # Slice Element Copies/Clones
 
-## RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes" cargo bench
+### RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes" cargo bench
 
 ```sh
 running 4 tests
@@ -12,7 +12,7 @@ test c_style_input_u64_fixed_bench ... bench:     226,659 ns/iter (+/- 542)
 test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 ```
 
-## RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench
+### RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench
 
 ```sh
 running 4 tests
