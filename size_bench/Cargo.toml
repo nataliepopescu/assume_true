@@ -1,0 +1,20 @@
+[package]
+name = "size_bench"
+version = "0.1.0"
+authors = ["np <nataliepopescu@gmail.com>"]
+edition = "2018"
+
+[lib]
+
+[dependencies]
+rand = "*"
+
+[profile.bench]
+debug = true
+
+[[bench]]
+name = "bench"
+harness = false
+
+[dev-dependencies.bencher]
+version = "0.1.4"
