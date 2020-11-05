@@ -29,9 +29,9 @@ fn c_style_input_u128_fixed_bench(bencher: &mut Bencher) {
 }
 
 fn c_style_input_u64_fixed_bench(bencher: &mut Bencher) {
-    let mut app_buf: [u64; 320000] = [0; 320000];
-    let mut other_buf: [u64; 320000] = [0; 320000];
-    for i in 0..320000 {
+    let mut app_buf: [u64; 40000] = [0; 40000];
+    let mut other_buf: [u64; 40000] = [0; 40000];
+    for i in 0..40000 {
         other_buf[i] = rand::random();
     }
 
@@ -41,9 +41,9 @@ fn c_style_input_u64_fixed_bench(bencher: &mut Bencher) {
 }
 
 fn c_style_input_u32_fixed_bench(bencher: &mut Bencher) {
-    let mut app_buf: [u32; 320000] = [0; 320000];
-    let mut other_buf: [u32; 320000] = [0; 320000];
-    for i in 0..320000 {
+    let mut app_buf: [u32; 80000] = [0; 80000];
+    let mut other_buf: [u32; 80000] = [0; 80000];
+    for i in 0..80000 {
         other_buf[i] = rand::random();
     }
 
@@ -53,9 +53,9 @@ fn c_style_input_u32_fixed_bench(bencher: &mut Bencher) {
 }
 
 fn c_style_input_u16_fixed_bench(bencher: &mut Bencher) {
-    let mut app_buf: [u16; 320000] = [0; 320000];
-    let mut other_buf: [u16; 320000] = [0; 320000];
-    for i in 0..320000 {
+    let mut app_buf: [u16; 160000] = [0; 160000];
+    let mut other_buf: [u16; 160000] = [0; 160000];
+    for i in 0..160000 {
         other_buf[i] = rand::random();
     }
 
