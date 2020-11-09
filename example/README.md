@@ -16,7 +16,19 @@ test c_style_unknown_size_bench      ... bench:     178,516 ns/iter (+/- 2,679)
 test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 ```
 
-### Bounds Checks Removed
+### IRCE
+
+```sh
+running 4 tests
+test c_style_input_size_fixed_bench  ... bench:     126,473 ns/iter (+/- 2,001)
+test c_style_output_size_fixed_bench ... bench:     137,047 ns/iter (+/- 1,981)
+test c_style_size_fixed_bench        ... bench:      22,949 ns/iter (+/- 35)
+test c_style_unknown_size_bench      ... bench:     178,774 ns/iter (+/- 1,669)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
+```
+
+### Our Pass
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench`
 
