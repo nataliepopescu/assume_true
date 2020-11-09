@@ -20,7 +20,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench`
 
-### PHASE ORDER: IRCE; SimplifyCFG; DCE
+### PHASE ORDER: -IRCE-SimplifyCFG-DCE-
 
 ```sh
 running 4 tests
@@ -32,7 +32,7 @@ test c_style_unknown_size_bench      ... bench:     178,680 ns/iter (+/- 2,048)
 test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 ```
 
-### PHASE ORDER: SimplifyCFG; IRCE; SimplifyCFG; DCE
+### PHASE ORDER: -SimplifyCFG-IRCE-SimplifyCFG-DCE-
 
 ```sh
 running 4 tests
@@ -48,7 +48,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench`
 
-### PHASE ORDER: RBC; SimplifyCFG; DCE
+### PHASE ORDER: -RBC-SimplifyCFG-DCE-
 
 ```sh
 running 4 tests
@@ -60,7 +60,7 @@ test c_style_unknown_size_bench      ... bench:      24,778 ns/iter (+/- 37)
 test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 ```
 
-### PHASE ORDER: SimplifyCFG; RBC; SimplifyCFG; DCE
+### PHASE ORDER: -SimplifyCFG-RBC-SimplifyCFG-DCE-
 
 ```sh
 running 4 tests
