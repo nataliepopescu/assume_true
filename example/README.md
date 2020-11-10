@@ -20,8 +20,6 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench`
 
-### Phase Order: -IRCE-SimplifyCFG-DCE-
-
 ```sh
 running 4 tests
 test c_style_input_size_fixed_bench  ... bench:     126,588 ns/iter (+/- 1,806)
@@ -32,23 +30,9 @@ test c_style_unknown_size_bench      ... bench:     178,680 ns/iter (+/- 2,048)
 test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 ```
 
-### Phase Order: -SimplifyCFG-IRCE-SimplifyCFG-DCE-
-
-```sh
-running 4 tests
-test c_style_input_size_fixed_bench  ... bench:     126,768 ns/iter (+/- 1,734)
-test c_style_output_size_fixed_bench ... bench:     137,622 ns/iter (+/- 4,592)
-test c_style_size_fixed_bench        ... bench:      23,578 ns/iter (+/- 45)
-test c_style_unknown_size_bench      ... bench:     177,341 ns/iter (+/- 3,070)
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
-```
-
 ## Our Pass
 
 `RUSTFLAGS="-C opt-level=3 -C debuginfo=2 -C embed-bitcode=yes -Z remove-bc" cargo bench`
-
-### Phase Order: -RBC-SimplifyCFG-DCE-
 
 ```sh
 running 4 tests
@@ -56,18 +40,6 @@ test c_style_input_size_fixed_bench  ... bench:      24,777 ns/iter (+/- 47)
 test c_style_output_size_fixed_bench ... bench:      24,777 ns/iter (+/- 26)
 test c_style_size_fixed_bench        ... bench:      24,778 ns/iter (+/- 27)
 test c_style_unknown_size_bench      ... bench:      24,778 ns/iter (+/- 37)
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
-```
-
-### Phase Order: -SimplifyCFG-RBC-SimplifyCFG-DCE-
-
-```sh
-running 4 tests
-test c_style_input_size_fixed_bench  ... bench:      22,334 ns/iter (+/- 36)
-test c_style_output_size_fixed_bench ... bench:      22,332 ns/iter (+/- 29)
-test c_style_size_fixed_bench        ... bench:      22,336 ns/iter (+/- 56)
-test c_style_unknown_size_bench      ... bench:      22,333 ns/iter (+/- 34)
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 4 measured
 ```
