@@ -1,0 +1,241 @@
+// WARNING: This output format is intended for human consumers only
+// and is subject to change without notice. Knock yourself out.
+fn perf_mot(_1: &[u8], _2: &mut [u8]) -> () {
+    debug src => _1;                     // in scope 0 at src/lib.rs:13:17: 13:20
+    debug dst => _2;                     // in scope 0 at src/lib.rs:13:29: 13:32
+    let mut _0: ();                      // return place in scope 0 at src/lib.rs:13:45: 13:45
+    let mut _3: std::ops::Range<usize>;  // in scope 0 at src/lib.rs:14:14: 14:26
+    let mut _4: std::ops::Range<usize>;  // in scope 0 at src/lib.rs:14:14: 14:26
+    let mut _5: usize;                   // in scope 0 at src/lib.rs:14:17: 14:26
+    let mut _6: &[u8];                   // in scope 0 at src/lib.rs:14:17: 14:20
+    let mut _7: std::ops::Range<usize>;  // in scope 0 at src/lib.rs:14:14: 14:26
+    let mut _9: std::option::Option<usize>; // in scope 0 at src/lib.rs:14:14: 14:26
+    let mut _10: &mut std::ops::Range<usize>; // in scope 0 at src/lib.rs:14:14: 14:26
+    let mut _11: &mut std::ops::Range<usize>; // in scope 0 at src/lib.rs:14:14: 14:26
+    let mut _12: isize;                  // in scope 0 at src/lib.rs:14:9: 14:10
+    let mut _14: usize;                  // in scope 0 at src/lib.rs:14:9: 14:10
+    let mut _16: u8;                     // in scope 0 at src/lib.rs:16:41: 16:62
+    let mut _17: &u8;                    // in scope 0 at src/lib.rs:16:42: 16:62
+    let mut _18: &[u8];                  // in scope 0 at src/lib.rs:16:42: 16:45
+    let mut _19: usize;                  // in scope 0 at src/lib.rs:16:60: 16:61
+    let mut _20: &mut u8;                // in scope 0 at src/lib.rs:16:14: 16:38
+    let mut _21: &mut [u8];              // in scope 0 at src/lib.rs:16:14: 16:17
+    let mut _22: usize;                  // in scope 0 at src/lib.rs:16:36: 16:37
+    scope 1 {
+        debug iter => _7;                // in scope 1 at src/lib.rs:14:14: 14:26
+        let mut _8: usize;               // in scope 1 at src/lib.rs:14:14: 14:26
+        scope 2 {
+            debug __next => _8;          // in scope 2 at src/lib.rs:14:14: 14:26
+            let _13: usize;              // in scope 2 at src/lib.rs:14:9: 14:10
+            let _15: usize;              // in scope 2 at src/lib.rs:14:9: 14:10
+            scope 3 {
+                debug val => _13;        // in scope 3 at src/lib.rs:14:9: 14:10
+            }
+            scope 4 {
+                debug i => _15;          // in scope 4 at src/lib.rs:14:9: 14:10
+                scope 5 {
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _6 = _1;                         // scope 0 at src/lib.rs:14:17: 14:20
+        _5 = core::slice::<impl [u8]>::len(move _6) -> bb1; // scope 0 at src/lib.rs:14:17: 14:26
+                                         // mir::Constant
+                                         // + span: src/lib.rs:14:21: 14:24
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> usize {core::slice::<impl [u8]>::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        (_4.0: usize) = const 0_usize;   // scope 0 at src/lib.rs:14:14: 14:26
+        (_4.1: usize) = move _5;         // scope 0 at src/lib.rs:14:14: 14:26
+        _3 = <std::ops::Range<usize> as IntoIterator>::into_iter(move _4) -> bb2; // scope 0 at src/lib.rs:14:14: 14:26
+                                         // mir::Constant
+                                         // + span: src/lib.rs:14:14: 14:26
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _7 = move _3;                    // scope 0 at src/lib.rs:14:14: 14:26
+        goto -> bb3;                     // scope 1 at src/lib.rs:14:5: 18:6
+    }
+
+    bb3: {
+        _11 = &mut _7;                   // scope 2 at src/lib.rs:14:14: 14:26
+        _10 = &mut (*_11);               // scope 2 at src/lib.rs:14:14: 14:26
+        _9 = <std::ops::Range<usize> as Iterator>::next(move _10) -> bb4; // scope 2 at src/lib.rs:14:14: 14:26
+                                         // mir::Constant
+                                         // + span: src/lib.rs:14:14: 14:26
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _12 = discriminant(_9);          // scope 2 at src/lib.rs:14:9: 14:10
+        switchInt(move _12) -> [0_isize: bb5, 1_isize: bb7, otherwise: bb6]; // scope 2 at src/lib.rs:14:9: 14:10
+    }
+
+    bb5: {
+        _0 = const ();                   // scope 2 at src/lib.rs:14:5: 18:6
+        return;                          // scope 0 at src/lib.rs:19:2: 19:2
+    }
+
+    bb6: {
+        unreachable;                     // scope 2 at src/lib.rs:14:14: 14:26
+    }
+
+    bb7: {
+        _13 = ((_9 as Some).0: usize);   // scope 2 at src/lib.rs:14:9: 14:10
+        _14 = _13;                       // scope 3 at src/lib.rs:14:9: 14:10
+        _8 = move _14;                   // scope 3 at src/lib.rs:14:9: 14:10
+        _15 = _8;                        // scope 2 at src/lib.rs:14:14: 14:26
+        _18 = _1;                        // scope 5 at src/lib.rs:16:42: 16:45
+        _19 = _15;                       // scope 5 at src/lib.rs:16:60: 16:61
+        _17 = core::slice::<impl [u8]>::get_unchecked::<usize>(move _18, move _19) -> bb8; // scope 5 at src/lib.rs:16:42: 16:62
+                                         // mir::Constant
+                                         // + span: src/lib.rs:16:46: 16:59
+                                         // + literal: Const { ty: for<'r> unsafe fn(&'r [u8], usize) -> &'r <usize as std::slice::SliceIndex<[u8]>>::Output {core::slice::<impl [u8]>::get_unchecked::<usize>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        _16 = (*_17);                    // scope 5 at src/lib.rs:16:41: 16:62
+        _21 = &mut (*_2);                // scope 5 at src/lib.rs:16:14: 16:17
+        _22 = _15;                       // scope 5 at src/lib.rs:16:36: 16:37
+        _20 = core::slice::<impl [u8]>::get_unchecked_mut::<usize>(move _21, move _22) -> bb9; // scope 5 at src/lib.rs:16:14: 16:38
+                                         // mir::Constant
+                                         // + span: src/lib.rs:16:18: 16:35
+                                         // + literal: Const { ty: for<'r> unsafe fn(&'r mut [u8], usize) -> &'r mut <usize as std::slice::SliceIndex<[u8]>>::Output {core::slice::<impl [u8]>::get_unchecked_mut::<usize>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb9: {
+        (*_20) = move _16;               // scope 5 at src/lib.rs:16:13: 16:62
+        goto -> bb3;                     // scope 1 at src/lib.rs:14:5: 18:6
+    }
+}
+
+fn unknown_size(_1: &[u8], _2: &mut [u8]) -> () {
+    debug src => _1;                     // in scope 0 at src/lib.rs:4:21: 4:24
+    debug dst => _2;                     // in scope 0 at src/lib.rs:4:33: 4:36
+    let mut _0: ();                      // return place in scope 0 at src/lib.rs:4:49: 4:49
+    let mut _3: std::ops::Range<usize>;  // in scope 0 at src/lib.rs:5:14: 5:26
+    let mut _4: std::ops::Range<usize>;  // in scope 0 at src/lib.rs:5:14: 5:26
+    let mut _5: usize;                   // in scope 0 at src/lib.rs:5:17: 5:26
+    let mut _6: &[u8];                   // in scope 0 at src/lib.rs:5:17: 5:20
+    let mut _7: std::ops::Range<usize>;  // in scope 0 at src/lib.rs:5:14: 5:26
+    let mut _9: std::option::Option<usize>; // in scope 0 at src/lib.rs:5:14: 5:26
+    let mut _10: &mut std::ops::Range<usize>; // in scope 0 at src/lib.rs:5:14: 5:26
+    let mut _11: &mut std::ops::Range<usize>; // in scope 0 at src/lib.rs:5:14: 5:26
+    let mut _12: isize;                  // in scope 0 at src/lib.rs:5:9: 5:10
+    let mut _14: usize;                  // in scope 0 at src/lib.rs:5:9: 5:10
+    let mut _16: u8;                     // in scope 0 at src/lib.rs:6:36: 6:56
+    let mut _17: &u8;                    // in scope 0 at src/lib.rs:6:37: 6:56
+    let mut _18: std::option::Option<&u8>; // in scope 0 at src/lib.rs:6:37: 6:47
+    let mut _19: &[u8];                  // in scope 0 at src/lib.rs:6:37: 6:40
+    let mut _20: usize;                  // in scope 0 at src/lib.rs:6:45: 6:46
+    let mut _21: &mut u8;                // in scope 0 at src/lib.rs:6:10: 6:33
+    let mut _22: std::option::Option<&mut u8>; // in scope 0 at src/lib.rs:6:10: 6:24
+    let mut _23: &mut [u8];              // in scope 0 at src/lib.rs:6:10: 6:13
+    let mut _24: usize;                  // in scope 0 at src/lib.rs:6:22: 6:23
+    scope 1 {
+        debug iter => _7;                // in scope 1 at src/lib.rs:5:14: 5:26
+        let mut _8: usize;               // in scope 1 at src/lib.rs:5:14: 5:26
+        scope 2 {
+            debug __next => _8;          // in scope 2 at src/lib.rs:5:14: 5:26
+            let _13: usize;              // in scope 2 at src/lib.rs:5:9: 5:10
+            let _15: usize;              // in scope 2 at src/lib.rs:5:9: 5:10
+            scope 3 {
+                debug val => _13;        // in scope 3 at src/lib.rs:5:9: 5:10
+            }
+            scope 4 {
+                debug i => _15;          // in scope 4 at src/lib.rs:5:9: 5:10
+            }
+        }
+    }
+
+    bb0: {
+        _6 = _1;                         // scope 0 at src/lib.rs:5:17: 5:20
+        _5 = core::slice::<impl [u8]>::len(move _6) -> bb1; // scope 0 at src/lib.rs:5:17: 5:26
+                                         // mir::Constant
+                                         // + span: src/lib.rs:5:21: 5:24
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> usize {core::slice::<impl [u8]>::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        (_4.0: usize) = const 0_usize;   // scope 0 at src/lib.rs:5:14: 5:26
+        (_4.1: usize) = move _5;         // scope 0 at src/lib.rs:5:14: 5:26
+        _3 = <std::ops::Range<usize> as IntoIterator>::into_iter(move _4) -> bb2; // scope 0 at src/lib.rs:5:14: 5:26
+                                         // mir::Constant
+                                         // + span: src/lib.rs:5:14: 5:26
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _7 = move _3;                    // scope 0 at src/lib.rs:5:14: 5:26
+        goto -> bb3;                     // scope 1 at src/lib.rs:5:5: 7:6
+    }
+
+    bb3: {
+        _11 = &mut _7;                   // scope 2 at src/lib.rs:5:14: 5:26
+        _10 = &mut (*_11);               // scope 2 at src/lib.rs:5:14: 5:26
+        _9 = <std::ops::Range<usize> as Iterator>::next(move _10) -> bb4; // scope 2 at src/lib.rs:5:14: 5:26
+                                         // mir::Constant
+                                         // + span: src/lib.rs:5:14: 5:26
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _12 = discriminant(_9);          // scope 2 at src/lib.rs:5:9: 5:10
+        switchInt(move _12) -> [0_isize: bb5, 1_isize: bb7, otherwise: bb6]; // scope 2 at src/lib.rs:5:9: 5:10
+    }
+
+    bb5: {
+        _0 = const ();                   // scope 2 at src/lib.rs:5:5: 7:6
+        return;                          // scope 0 at src/lib.rs:8:2: 8:2
+    }
+
+    bb6: {
+        unreachable;                     // scope 2 at src/lib.rs:5:14: 5:26
+    }
+
+    bb7: {
+        _13 = ((_9 as Some).0: usize);   // scope 2 at src/lib.rs:5:9: 5:10
+        _14 = _13;                       // scope 3 at src/lib.rs:5:9: 5:10
+        _8 = move _14;                   // scope 3 at src/lib.rs:5:9: 5:10
+        _15 = _8;                        // scope 2 at src/lib.rs:5:14: 5:26
+        _19 = _1;                        // scope 4 at src/lib.rs:6:37: 6:40
+        _20 = _15;                       // scope 4 at src/lib.rs:6:45: 6:46
+        _18 = core::slice::<impl [u8]>::get::<usize>(move _19, move _20) -> bb8; // scope 4 at src/lib.rs:6:37: 6:47
+                                         // mir::Constant
+                                         // + span: src/lib.rs:6:41: 6:44
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8], usize) -> std::option::Option<&'r <usize as std::slice::SliceIndex<[u8]>>::Output> {core::slice::<impl [u8]>::get::<usize>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        _17 = Option::<&u8>::unwrap(move _18) -> bb9; // scope 4 at src/lib.rs:6:37: 6:56
+                                         // mir::Constant
+                                         // + span: src/lib.rs:6:48: 6:54
+                                         // + literal: Const { ty: fn(std::option::Option<&u8>) -> &u8 {std::option::Option::<&u8>::unwrap}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb9: {
+        _16 = (*_17);                    // scope 4 at src/lib.rs:6:36: 6:56
+        _23 = &mut (*_2);                // scope 4 at src/lib.rs:6:10: 6:13
+        _24 = _15;                       // scope 4 at src/lib.rs:6:22: 6:23
+        _22 = core::slice::<impl [u8]>::get_mut::<usize>(move _23, move _24) -> bb10; // scope 4 at src/lib.rs:6:10: 6:24
+                                         // mir::Constant
+                                         // + span: src/lib.rs:6:14: 6:21
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [u8], usize) -> std::option::Option<&'r mut <usize as std::slice::SliceIndex<[u8]>>::Output> {core::slice::<impl [u8]>::get_mut::<usize>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        _21 = Option::<&mut u8>::unwrap(move _22) -> bb11; // scope 4 at src/lib.rs:6:10: 6:33
+                                         // mir::Constant
+                                         // + span: src/lib.rs:6:25: 6:31
+                                         // + literal: Const { ty: fn(std::option::Option<&mut u8>) -> &mut u8 {std::option::Option::<&mut u8>::unwrap}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb11: {
+        (*_21) = move _16;               // scope 4 at src/lib.rs:6:9: 6:56
+        goto -> bb3;                     // scope 1 at src/lib.rs:5:5: 7:6
+    }
+}
