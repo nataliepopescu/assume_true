@@ -4,7 +4,7 @@ extern crate forpaper;
 
 use bencher::{Bencher, black_box};
 
-fn fixed_size_bench(bencher: &mut Bencher) {
+/*fn fixed_size_bench(bencher: &mut Bencher) {
     let mut app_buf: [u8; 320000] = [0; 320000];
     let mut other_buf: [u8; 320000] = [0; 320000];
     for i in 0..320000 {
@@ -14,7 +14,7 @@ fn fixed_size_bench(bencher: &mut Bencher) {
     bencher.iter(|| {
         black_box(forpaper::fixed_size(&other_buf, &mut app_buf));
     });
-}
+}*/
 
 fn unknown_size_bench(bencher: &mut Bencher) {
     let mut app_buf: [u8; 320000] = [0; 320000];
@@ -40,7 +40,7 @@ fn perf_mot_bench(bencher: &mut Bencher) {
     });
 }
 
-fn transformation_bench(bencher: &mut Bencher) {
+/*fn transformation_bench(bencher: &mut Bencher) {
     let mut app_buf: [u8; 320000] = [0; 320000];
     let mut other_buf: [u8; 320000] = [0; 320000];
     for i in 0..320000 {
@@ -50,12 +50,12 @@ fn transformation_bench(bencher: &mut Bencher) {
     bencher.iter(|| {
         black_box(forpaper::transformation(&other_buf, &mut app_buf));
     });
-}
+}*/
 
 benchmark_group!(benches,
-                 fixed_size_bench,
+                 //fixed_size_bench,
                  unknown_size_bench,
-                 perf_mot_bench,
-                 transformation_bench);
+                 perf_mot_bench); //,
+                 //transformation_bench);
 
 benchmark_main!(benches);
