@@ -16,6 +16,7 @@ use bencher::{Bencher, black_box};
     });
 }*/
 
+/*#[inline(always)]
 fn unwraps() {
     let iu8: u8 = 0xF;
     let c_iu8: u8 = 0xF;
@@ -41,10 +42,9 @@ fn unwraps() {
     let some_mu32 = Some(&mut mu32);
     let clone_mu32 = Some(&mut c_mu32);
     assert_eq!(some_mu32.unwrap(), clone_mu32.unwrap());
-}
+}*/
 
 fn unknown_size_bench(bencher: &mut Bencher) {
-    unwraps();
     let mut app_buf: [u8; 320000] = [0; 320000];
     let mut other_buf: [u8; 320000] = [0; 320000];
     for i in 0..320000 {
@@ -57,7 +57,31 @@ fn unknown_size_bench(bencher: &mut Bencher) {
 }
 
 fn perf_mot_bench(bencher: &mut Bencher) {
-    unwraps();
+    let iu8: u8 = 0xF;
+    let c_iu8: u8 = 0xF;
+    let mut mu8: u8 = 0xF;
+    let mut c_mu8: u8 = 0xF;
+    let iu32: u32 = 0xFFFF;
+    let c_iu32: u32 = 0xFFFF;
+    let mut mu32: u32 = 0xFFFF;
+    let mut c_mu32: u32 = 0xFFFF;
+
+    let some_iu8 = Some(&iu8);
+    let clone_iu8 = Some(&c_iu8);
+    assert_eq!(some_iu8.unwrap(), clone_iu8.unwrap());
+
+    let some_mu8 = Some(&mut mu8);
+    let clone_mu8 = Some(&mut c_mu8);
+    assert_eq!(some_mu8.unwrap(), clone_mu8.unwrap());
+
+    let some_iu32 = Some(&iu32);
+    let clone_iu32 = Some(&c_iu32);
+    assert_eq!(some_iu32.unwrap(), clone_iu32.unwrap());
+
+    let some_mu32 = Some(&mut mu32);
+    let clone_mu32 = Some(&mut c_mu32);
+    assert_eq!(some_mu32.unwrap(), clone_mu32.unwrap());
+
     let mut app_buf: [u8; 320000] = [0; 320000];
     let mut other_buf: [u8; 320000] = [0; 320000];
     for i in 0..320000 {
